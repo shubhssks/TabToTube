@@ -18,25 +18,30 @@ await mkdir(releaseDir, { recursive: true });
 
 const extensionZipName = `TabToTube-Extension-v${version}.zip`;
 const companionZipName = `TabToTube-Companion-Node-Bundle-v${version}.zip`;
+const storeAssetsZipName = `TabToTube-Store-Assets-v${version}.zip`;
 const sourceExtensionZip = resolve(root, "dist_prod", `tabtotube-extension-v${packageJson.version}.zip`);
 const targetExtensionZip = resolve(releaseDir, extensionZipName);
 const targetCompanionZip = resolve(releaseDir, companionZipName);
+const targetStoreAssetsZip = resolve(releaseDir, storeAssetsZipName);
 
 await stat(sourceExtensionZip);
 await copyFile(sourceExtensionZip, targetExtensionZip);
 await createCompanionBundle(targetCompanionZip);
+await createStoreAssetsBundle(targetStoreAssetsZip);
 
 const checksumPath = resolve(releaseDir, "checksums-sha256.txt");
 const releaseNotesPath = resolve(releaseDir, "RELEASE_NOTES.md");
 const assetFiles = [
   targetExtensionZip,
-  targetCompanionZip
+  targetCompanionZip,
+  targetStoreAssetsZip
 ];
 
 await writeFile(checksumPath, await renderChecksums(assetFiles));
 await writeFile(releaseNotesPath, renderReleaseNotes({
   companionZipName,
   extensionZipName,
+  storeAssetsZipName,
   version
 }));
 
@@ -70,6 +75,30 @@ async function createCompanionBundle(zipPath) {
   });
 }
 
+async function createStoreAssetsBundle(zipPath) {
+  const files = [
+    ...await listFiles(resolve(root, "assets", "publishing"), () => true),
+    ...await listFiles(resolve(root, "extension", "icons"), () => true)
+  ];
+
+  await new Promise((resolvePromise, rejectPromise) => {
+    const output = createWriteStream(zipPath);
+    const archive = new ZipArchive({ zlib: { level: 9 } });
+
+    output.on("close", resolvePromise);
+    archive.on("error", rejectPromise);
+    archive.pipe(output);
+
+    for (const file of files) {
+      archive.file(file, {
+        name: normalize(relative(root, file))
+      });
+    }
+
+    archive.finalize();
+  });
+}
+
 async function renderChecksums(files) {
   const lines = [];
 
@@ -81,7 +110,7 @@ async function renderChecksums(files) {
   return lines.join("\n");
 }
 
-function renderReleaseNotes({ companionZipName, extensionZipName, version: releaseVersion }) {
+function renderReleaseNotes({ companionZipName, extensionZipName, storeAssetsZipName, version: releaseVersion }) {
   return [
     `# TabToTube v${releaseVersion}`,
     "",
@@ -89,6 +118,7 @@ function renderReleaseNotes({ companionZipName, extensionZipName, version: relea
     "",
     `- \`${extensionZipName}\`: extension package for Chrome Web Store upload or manual developer testing.`,
     `- \`${companionZipName}\`: temporary companion app bundle for testers. It requires Node.js 18+ and FFmpeg on PATH or in \`companion-app/bin/ffmpeg.exe\`.`,
+    `- \`${storeAssetsZipName}\`: Chrome Web Store icons, screenshots, promotional images, and instructional video.`,
     "- `checksums-sha256.txt`: SHA-256 checksums for release assets.",
     "",
     "## Tester Setup",
@@ -189,4 +219,3 @@ function shouldIncludeCompanionFile(relativePath, isDirectory) {
 function normalize(value) {
   return value.replaceAll("\\", "/");
 }
-

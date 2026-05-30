@@ -90,6 +90,12 @@ Build GitHub release assets:
 npm run release:assets
 ```
 
+Generate icons, store screenshots, promo images, and instructional video:
+
+```bash
+npm run assets:publish
+```
+
 Run full verification and then build GitHub release assets:
 
 ```bash

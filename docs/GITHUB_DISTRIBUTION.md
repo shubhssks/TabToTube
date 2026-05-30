@@ -49,6 +49,7 @@ The workflow publishes a release to the public downloads repo with:
 
 - `TabToTube-Extension-v0.1.0.zip`
 - `TabToTube-Companion-Node-Bundle-v0.1.0.zip`
+- `TabToTube-Store-Assets-v0.1.0.zip`
 - `checksums-sha256.txt`
 
 ## Manual Publish
@@ -83,4 +84,3 @@ https://github.com/<your-github-owner>/tabtotube-releases/releases/latest
 ```
 
 Once your GitHub owner is final, update the companion download URL in the extension UI before publishing.
-

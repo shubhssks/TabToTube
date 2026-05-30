@@ -29,6 +29,12 @@ Run:
 npm run test:all
 ```
 
+Generate store listing media:
+
+```bash
+npm run assets:publish
+```
+
 Expected checks:
 
 - `dist_dev/` and `dist_prod/` are generated.
@@ -66,6 +72,10 @@ Do not upload `dist_dev/`.
 If the source repo is private and there is no website, publish public binaries through a separate public GitHub repo.
 
 See [GitHub Download Distribution](GITHUB_DISTRIBUTION.md).
+
+## Store Listing Assets
+
+See [Chrome Web Store Assets](STORE_ASSETS.md).
 
 ## Production Notes
 
