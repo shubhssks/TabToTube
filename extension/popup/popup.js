@@ -1,7 +1,10 @@
+import { COMPANION_DOWNLOAD_URL } from "../config.js";
+
 const DEFAULT_COMPANION_URL = "ws://127.0.0.1:43310/stream";
 
 const elements = {
   bitrate: document.querySelector("#bitrate"),
+  companionDownloadLink: document.querySelector("#companionDownloadLink"),
   companionUrl: document.querySelector("#companionUrl"),
   duration: document.querySelector("#duration"),
   rememberStreamKey: document.querySelector("#rememberStreamKey"),
@@ -18,6 +21,8 @@ let currentStatus = { state: "idle", startedAt: null };
 init();
 
 async function init() {
+  elements.companionDownloadLink.href = COMPANION_DOWNLOAD_URL;
+
   const saved = await chrome.storage.local.get([
     "bitrate",
     "companionUrl",
@@ -145,6 +150,7 @@ function applyStatus(status = {}) {
   const state = currentStatus.state || "idle";
   elements.statusDot.className = `status-dot ${state}`;
   elements.statusText.textContent = statusLabel(currentStatus);
+  elements.companionDownloadLink.hidden = !shouldShowCompanionDownload(currentStatus);
   elements.startButton.disabled = state === "connecting" || state === "live";
   elements.stopButton.disabled = state !== "connecting" && state !== "live";
 
@@ -170,6 +176,17 @@ function statusLabel(status) {
   }
 
   return "Idle";
+}
+
+function shouldShowCompanionDownload(status) {
+  if (status.state !== "error") {
+    return false;
+  }
+
+  const error = String(status.error || "").toLowerCase();
+  return error.includes("companion")
+    || error.includes("ffmpeg")
+    || error.includes("websocket");
 }
 
 function startTimer() {

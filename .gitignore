@@ -8,6 +8,7 @@ dist_prod/
 build/
 coverage/
 automation/reports/
+release_assets/
 playwright-report/
 playwright-report*/
 test-results/

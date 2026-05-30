@@ -5,6 +5,7 @@
 - Manifest V3 Chrome extension shell.
 - Popup controls for stream key, capture source, bitrate, companion URL, start, stop, status, and duration.
 - Explicit stream-key persistence opt-in through `Remember stream key`.
+- Companion download link for GitHub-hosted release assets when local bridge setup is missing.
 - Background service worker for status, capture permission flow, and offscreen coordination.
 - Offscreen document for long-running capture and MediaRecorder encoding.
 - Tab capture through `chrome.tabCapture`.

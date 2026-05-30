@@ -45,6 +45,7 @@ The companion binds to `127.0.0.1` by default and listens on `ws://127.0.0.1:433
 Stream keys are not saved unless `Remember stream key` is checked in the popup.
 
 See [commands](docs/COMMANDS.md), [development](docs/DEVELOPMENT.md), and [publishing](docs/PUBLISHING.md) for the full workflow.
+For GitHub-hosted downloads without a public website, see [GitHub distribution](docs/GITHUB_DISTRIBUTION.md).
 
 ## Extension Builds
 

@@ -1,0 +1,76 @@
+name: Publish Download Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, without leading v
+        required: true
+        default: 0.1.0
+      prerelease:
+        description: Mark release as prerelease
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out private source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install companion dependencies
+        run: npm --prefix companion-app ci
+
+      - name: Build release assets
+        run: npm run release:assets
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+
+      - name: Require release repository variable
+        shell: pwsh
+        run: |
+          if ("${{ vars.RELEASES_REPO }}" -eq "") {
+            throw "Set repository variable RELEASES_REPO to owner/tabtotube-releases"
+          }
+
+      - name: Publish release to public downloads repo
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_REPO_TOKEN }}
+          RELEASES_REPO: ${{ vars.RELEASES_REPO }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          IS_PRERELEASE: ${{ inputs.prerelease }}
+        run: |
+          if ($env:GH_TOKEN -eq "") {
+            throw "Set secret RELEASES_REPO_TOKEN with contents:write access to the public downloads repo"
+          }
+
+          $args = @(
+            "release", "create", "v$env:RELEASE_VERSION",
+            "release_assets/TabToTube-Extension-v$env:RELEASE_VERSION.zip",
+            "release_assets/TabToTube-Companion-Node-Bundle-v$env:RELEASE_VERSION.zip",
+            "release_assets/checksums-sha256.txt",
+            "--repo", "$env:RELEASES_REPO",
+            "--title", "TabToTube v$env:RELEASE_VERSION",
+            "--notes-file", "release_assets/RELEASE_NOTES.md"
+          )
+
+          if ($env:IS_PRERELEASE -eq "true") {
+            $args += "--prerelease"
+          }
+
+          gh @args
+

@@ -84,11 +84,24 @@ Create only the publish artifact:
 npm run publish:zip
 ```
 
+Build GitHub release assets:
+
+```bash
+npm run release:assets
+```
+
+Run full verification and then build GitHub release assets:
+
+```bash
+npm run release:verify
+```
+
 Outputs:
 
 - `dist_dev/`
 - `dist_prod/`
 - `dist_prod/tabtotube-extension-v0.1.0.zip`
+- `release_assets/`
 
 ## Validation
 

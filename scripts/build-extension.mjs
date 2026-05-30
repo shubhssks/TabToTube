@@ -80,6 +80,7 @@ async function validateBuild(outputDir) {
     manifest.background?.service_worker,
     "offscreen/offscreen.html",
     "offscreen/offscreen.js",
+    "config.js",
     "streaming/encoder.js",
     "capture/tabCapture.js",
     "capture/screenCapture.js"

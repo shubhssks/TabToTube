@@ -13,6 +13,14 @@ This creates:
 - `dist_prod/`
 - `dist_prod/tabtotube-extension-v0.1.0.zip`
 
+For GitHub download releases, run:
+
+```bash
+npm run release:assets
+```
+
+This creates upload-ready files under `release_assets/`.
+
 ## Pre-Publish Verification
 
 Run:
@@ -52,6 +60,12 @@ dist_prod/tabtotube-extension-v0.1.0.zip
 ```
 
 Do not upload `dist_dev/`.
+
+## GitHub Downloads
+
+If the source repo is private and there is no website, publish public binaries through a separate public GitHub repo.
+
+See [GitHub Download Distribution](GITHUB_DISTRIBUTION.md).
 
 ## Production Notes
 

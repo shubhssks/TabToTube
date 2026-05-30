@@ -10,6 +10,8 @@
     "build:all": "node scripts/build-extension.mjs all",
     "build": "npm run build:dev && npm run build:prod",
     "publish:zip": "npm run build:prod",
+    "release:assets": "npm run build:prod && node scripts/build-release-assets.mjs",
+    "release:verify": "npm run verify && npm run release:assets",
     "playwright:install": "playwright install chromium",
     "companion:install": "npm --prefix companion-app install",
     "companion:start": "npm --prefix companion-app start",

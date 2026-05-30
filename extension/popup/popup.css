@@ -171,6 +171,22 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
+.download-link {
+  display: block;
+  color: #1f6feb;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+.download-link[hidden] {
+  display: none;
+}
+
 .actions {
   display: grid;
   grid-template-columns: 1fr 1fr;

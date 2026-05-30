@@ -90,6 +90,7 @@ test("renders the popup controls", async ({ page }) => {
   await expect(page.getByLabel("Companion URL")).toBeVisible();
   await expect(page.getByLabel("Video bitrate")).toBeVisible();
   await expect(page.getByText("Duration")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Download companion app" })).toBeHidden();
   await expect(page.getByRole("button", { name: "Start" })).toBeEnabled();
   await expect(page.getByRole("button", { name: "Stop" })).toBeDisabled();
 });
@@ -134,6 +135,22 @@ test("persists the stream key when remember is checked", async ({ page }) => {
   const storage = await page.evaluate(() => window.__tabToTubeStorage);
   expect(storage.rememberStreamKey).toBe(true);
   expect(storage.streamKey).toBe("abcd-efgh-ijkl-mnop");
+});
+
+test("shows the GitHub companion download link when companion is missing", async ({ page }) => {
+  await page.evaluate(() => {
+    window.__tabToTubeRuntimeListener({
+      type: "STATE_UPDATE",
+      status: {
+        state: "error",
+        error: "Unable to connect to companion app"
+      }
+    });
+  });
+
+  const link = page.getByRole("link", { name: "Download companion app" });
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute("href", /github\.com\/[^/]+\/tabtotube-releases\/releases\/latest/);
 });
 
 function serveExtensionFile(request, response) {

@@ -49,6 +49,13 @@
     "testFile": "automation/tests/popup.spec.js"
   },
   {
+    "id": "POPUP-005",
+    "area": "Extension UI",
+    "requirement": "Show the GitHub companion download link when the companion app is missing.",
+    "suite": "popup",
+    "testFile": "automation/tests/popup.spec.js"
+  },
+  {
     "id": "COMP-001",
     "area": "Companion app",
     "requirement": "Expose a local health endpoint with FFmpeg availability.",
