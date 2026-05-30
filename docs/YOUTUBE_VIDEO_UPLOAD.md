@@ -2,6 +2,12 @@
 
 Use this when uploading the TabToTube quick-start video to YouTube.
 
+Published video URL:
+
+```text
+https://www.youtube.com/watch?v=R9HcFLHCXOE
+```
+
 ## Files
 
 Video:

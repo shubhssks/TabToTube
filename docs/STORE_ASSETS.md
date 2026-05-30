@@ -77,6 +77,12 @@ assets/publishing/video/tabtotube-quick-start-poster.png
 
 The video is a short no-audio walkthrough for tester onboarding and release pages.
 
+Published YouTube video:
+
+```text
+https://www.youtube.com/watch?v=R9HcFLHCXOE
+```
+
 ## Store Notes
 
 Chrome Web Store image requirements can change. Before upload, compare these assets against the current official Chrome Web Store image guidance:

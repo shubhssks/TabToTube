@@ -62,6 +62,9 @@ assets/publishing/promotional/small-promo-440x280.png
 
 Marquee promo tile:
 assets/publishing/promotional/marquee-promo-1400x560.png
+
+Instructional video URL:
+https://www.youtube.com/watch?v=R9HcFLHCXOE
 ```
 
 The generated large promo tile is kept for compatibility with older/legacy dashboard fields. Upload it only if the dashboard shows a matching slot:

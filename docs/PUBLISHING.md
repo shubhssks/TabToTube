@@ -89,6 +89,12 @@ See [Chrome Web Store Assets](STORE_ASSETS.md).
 
 Use [YouTube Video Upload Details](YOUTUBE_VIDEO_UPLOAD.md) for the quick-start video title, description, tags, thumbnail path, and recommended visibility settings.
 
+Published quick-start video:
+
+```text
+https://www.youtube.com/watch?v=R9HcFLHCXOE
+```
+
 ## Store Listing Copy
 
 Copy/paste listing text from [Chrome Web Store Copy](STORE_DESC_TXT.md).
