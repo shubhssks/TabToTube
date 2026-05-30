@@ -90,7 +90,12 @@ test("renders the popup controls", async ({ page }) => {
   await expect(page.getByLabel("Companion URL")).toBeVisible();
   await expect(page.getByLabel("Video bitrate")).toBeVisible();
   await expect(page.getByText("Duration")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Download companion app" })).toBeHidden();
+  await expect(page.getByText("Companion app required")).toBeVisible();
+  await expect(page.getByText("Download it once from GitHub Releases")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Download" })).toHaveAttribute(
+    "href",
+    "https://github.com/shubhssks/TabToTube/releases/latest"
+  );
   await expect(page.getByRole("button", { name: "Start" })).toBeEnabled();
   await expect(page.getByRole("button", { name: "Stop" })).toBeDisabled();
 });
@@ -137,7 +142,7 @@ test("persists the stream key when remember is checked", async ({ page }) => {
   expect(storage.streamKey).toBe("abcd-efgh-ijkl-mnop");
 });
 
-test("shows the GitHub companion download link when companion is missing", async ({ page }) => {
+test("keeps the GitHub companion download link visible when companion is missing", async ({ page }) => {
   await page.evaluate(() => {
     window.__tabToTubeRuntimeListener({
       type: "STATE_UPDATE",
@@ -148,9 +153,9 @@ test("shows the GitHub companion download link when companion is missing", async
     });
   });
 
-  const link = page.getByRole("link", { name: "Download companion app" });
+  const link = page.getByRole("link", { name: "Download" });
   await expect(link).toBeVisible();
-  await expect(link).toHaveAttribute("href", /github\.com\/[^/]+\/tabtotube-releases\/releases\/latest/);
+  await expect(link).toHaveAttribute("href", "https://github.com/shubhssks/TabToTube/releases/latest");
 });
 
 function serveExtensionFile(request, response) {

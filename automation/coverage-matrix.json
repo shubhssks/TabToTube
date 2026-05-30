@@ -51,7 +51,7 @@
   {
     "id": "POPUP-005",
     "area": "Extension UI",
-    "requirement": "Show the GitHub companion download link when the companion app is missing.",
+    "requirement": "Show a visible companion app setup notice with a GitHub release download link.",
     "suite": "popup",
     "testFile": "automation/tests/popup.spec.js"
   },

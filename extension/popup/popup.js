@@ -150,7 +150,6 @@ function applyStatus(status = {}) {
   const state = currentStatus.state || "idle";
   elements.statusDot.className = `status-dot ${state}`;
   elements.statusText.textContent = statusLabel(currentStatus);
-  elements.companionDownloadLink.hidden = !shouldShowCompanionDownload(currentStatus);
   elements.startButton.disabled = state === "connecting" || state === "live";
   elements.stopButton.disabled = state !== "connecting" && state !== "live";
 
@@ -176,17 +175,6 @@ function statusLabel(status) {
   }
 
   return "Idle";
-}
-
-function shouldShowCompanionDownload(status) {
-  if (status.state !== "error") {
-    return false;
-  }
-
-  const error = String(status.error || "").toLowerCase();
-  return error.includes("companion")
-    || error.includes("ffmpeg")
-    || error.includes("websocket");
 }
 
 function startTimer() {

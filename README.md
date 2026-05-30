@@ -49,6 +49,16 @@ For GitHub-hosted downloads without a public website, see [GitHub distribution](
 For extension listing media, see [store assets](docs/STORE_ASSETS.md).
 For Chrome Web Store listing text, see [store copy](docs/STORE_DESC_TXT.md).
 
+## User Install
+
+Public users install the Chrome extension from the Chrome Web Store and download the companion app from:
+
+```text
+https://github.com/shubhssks/TabToTube/releases/latest
+```
+
+The extension popup also shows this companion download link directly, so users see the required local app before they try to stream.
+
 ## Extension Builds
 
 Install root automation dependencies once:

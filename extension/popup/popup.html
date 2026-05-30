@@ -44,6 +44,16 @@
         <input id="companionUrl" type="url" spellcheck="false" value="ws://127.0.0.1:43310/stream">
       </label>
 
+      <section class="setup-callout" aria-label="Companion app setup">
+        <div>
+          <strong>Companion app required</strong>
+          <p>Download it once from GitHub Releases, then start it before streaming.</p>
+        </div>
+        <a id="companionDownloadLink" class="download-link" href="#" target="_blank" rel="noreferrer">
+          Download
+        </a>
+      </section>
+
       <label class="field">
         <span>Video bitrate</span>
         <select id="bitrate">
@@ -58,10 +68,6 @@
         <span>Duration</span>
         <strong id="duration">00:00:00</strong>
       </div>
-
-      <a id="companionDownloadLink" class="download-link" href="#" target="_blank" rel="noreferrer" hidden>
-        Download companion app
-      </a>
 
       <footer class="actions">
         <button id="startButton" type="button" class="primary">Start</button>

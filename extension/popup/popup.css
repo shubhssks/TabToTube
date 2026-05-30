@@ -171,20 +171,47 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
-.download-link {
+.setup-callout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding: 10px 12px;
+  border: 1px solid #b9d2ff;
+  border-radius: 8px;
+  background: #eef5ff;
+}
+
+.setup-callout strong {
   display: block;
+  color: #202329;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.setup-callout p {
+  margin-top: 4px;
+  line-height: 1.35;
+}
+
+.download-link {
+  display: inline-grid;
+  min-height: 32px;
+  align-items: center;
+  border: 1px solid #1f6feb;
+  border-radius: 7px;
+  padding: 0 10px;
+  background: #ffffff;
   color: #1f6feb;
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .download-link:hover {
-  text-decoration: underline;
-}
-
-.download-link[hidden] {
-  display: none;
+  background: #f8fbff;
 }
 
 .actions {

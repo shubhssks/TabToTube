@@ -41,7 +41,7 @@ How it works:
 6. Click Start.
 
 Important:
-TabToTube requires the separate TabToTube Companion App for streaming. The extension cannot run FFmpeg by itself because browser extensions are sandboxed. If the companion app is missing, the extension will show a download link.
+TabToTube requires the separate TabToTube Companion App for streaming. The extension cannot run FFmpeg by itself because browser extensions are sandboxed. The extension popup shows the companion app download link. You can also download it from https://github.com/shubhssks/TabToTube/releases/latest
 
 Privacy:
 TabToTube is designed to run locally. Captured media is sent to the local companion app on your computer, then FFmpeg sends it directly to the YouTube RTMP endpoint using the stream key you provide. TabToTube does not operate a cloud relay server.
@@ -121,7 +121,7 @@ TabToTube requires a local companion app for end-to-end streaming.
 
 Test setup:
 1. Install the extension.
-2. Download the companion bundle from the public GitHub release page linked by the extension.
+2. Download the companion bundle from https://github.com/shubhssks/TabToTube/releases/latest
 3. Extract the companion bundle.
 4. Make sure Node.js 18+ is installed.
 5. Make sure FFmpeg is available on PATH or copied to companion-app/bin/ffmpeg.exe.
