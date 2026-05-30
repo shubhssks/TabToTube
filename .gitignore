@@ -9,6 +9,7 @@ build/
 coverage/
 automation/reports/
 release_assets/
+store_submission/
 playwright-report/
 playwright-report*/
 test-results/

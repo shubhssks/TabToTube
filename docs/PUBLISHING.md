@@ -67,9 +67,17 @@ dist_prod/tabtotube-extension-v1.0.0.zip
 
 Do not upload `dist_dev/`.
 
+Use [Chrome Web Store Submission Packet](CHROME_WEB_STORE_SUBMISSION.md) for exact dashboard fields, image paths, privacy answers, and reviewer instructions.
+
 ## GitHub Downloads
 
-If the source repo is private and there is no website, publish public binaries through a separate public GitHub repo.
+The current public companion download is:
+
+```text
+https://github.com/shubhssks/TabToTube/releases/latest
+```
+
+If the source repo becomes private again and there is no website, publish public binaries through a separate public GitHub repo.
 
 See [GitHub Download Distribution](GITHUB_DISTRIBUTION.md).
 

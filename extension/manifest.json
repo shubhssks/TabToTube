@@ -8,7 +8,6 @@
   "permissions": [
     "activeTab",
     "desktopCapture",
-    "notifications",
     "offscreen",
     "storage",
     "tabCapture"

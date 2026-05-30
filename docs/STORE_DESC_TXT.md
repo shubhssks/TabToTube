@@ -109,9 +109,6 @@ Used to keep media capture and encoding running outside the popup.
 
 storage:
 Used to save local settings such as bitrate, companion URL, and optionally the stream key if the user enables Remember stream key.
-
-notifications:
-Reserved for stream status notifications.
 ```
 
 ## Reviewer Test Instructions
@@ -140,7 +137,7 @@ If no YouTube stream key is available, the popup UI, source selection, stream-ke
 ## Support / Contact
 
 ```text
-For issues, open a GitHub issue in the public TabToTube downloads repository or contact the developer through the Chrome Web Store support channel.
+For issues, open a GitHub issue at https://github.com/shubhssks/TabToTube/issues or contact the developer through the Chrome Web Store support channel.
 ```
 
 ## Release Notes 1.0
