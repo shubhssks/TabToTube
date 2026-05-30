@@ -53,7 +53,13 @@ For YouTube quick-start video upload details, see [YouTube video upload](docs/YO
 
 ## User Install
 
-Public users install the Chrome extension from the Chrome Web Store and download the companion app from:
+Public users install the Chrome extension from the Chrome Web Store:
+
+```text
+https://chromewebstore.google.com/detail/mahejikknnpligimdeiljklllmielkaf
+```
+
+Then they download the companion app from:
 
 ```text
 https://github.com/shubhssks/TabToTube/releases/latest

@@ -65,7 +65,7 @@ Privacy policy:
 https://github.com/shubhssks/TabToTube/blob/master/docs/PRIVACY_POLICY.md
 
 Chrome Web Store listing:
-Add the Chrome Web Store URL here after approval.
+https://chromewebstore.google.com/detail/mahejikknnpligimdeiljklllmielkaf
 
 Important:
 TabToTube requires the local Companion App because Chrome extensions cannot run FFmpeg directly. Captured media is sent to the companion app on your own computer, then FFmpeg sends the stream to YouTube Live RTMP using the stream key you provide.

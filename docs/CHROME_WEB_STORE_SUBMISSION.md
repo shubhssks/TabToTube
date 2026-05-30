@@ -18,6 +18,8 @@ Version: 1.0.0
 Version name: 1.0
 Manifest: MV3
 Minimum Chrome version: 116
+Chrome Web Store ID: mahejikknnpligimdeiljklllmielkaf
+Chrome Web Store URL: https://chromewebstore.google.com/detail/mahejikknnpligimdeiljklllmielkaf
 ```
 
 ## Store Listing
@@ -37,6 +39,7 @@ Language: English
 Homepage URL: https://github.com/shubhssks/TabToTube
 Support URL: https://github.com/shubhssks/TabToTube/issues
 Companion download URL: https://github.com/shubhssks/TabToTube/releases/latest
+Chrome Web Store URL: https://chromewebstore.google.com/detail/mahejikknnpligimdeiljklllmielkaf
 ```
 
 ## Images

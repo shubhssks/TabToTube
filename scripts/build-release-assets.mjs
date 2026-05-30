@@ -14,6 +14,8 @@ const packageJson = JSON.parse(await readFile(resolve(root, "package.json"), "ut
 const manifest = JSON.parse(await readFile(resolve(root, "extension", "manifest.json"), "utf8"));
 const packageVersion = manifest.version || packageJson.version;
 const version = process.env.RELEASE_VERSION || manifest.version_name || packageVersion;
+const chromeWebStoreUrl = "https://chromewebstore.google.com/detail/mahejikknnpligimdeiljklllmielkaf";
+const publishedExtensionOrigin = "chrome-extension://mahejikknnpligimdeiljklllmielkaf";
 
 await rm(releaseDir, { force: true, recursive: true });
 await mkdir(releaseDir, { recursive: true });
@@ -132,6 +134,10 @@ function renderReleaseNotes({ companionZipName, extensionZipName, storeAssetsZip
     "5. Install or load the extension.",
     "6. Paste a YouTube Live stream key and start a private test stream.",
     "",
+    "## Chrome Web Store",
+    "",
+    chromeWebStoreUrl,
+    "",
     "## Production Note",
     "",
     "The companion bundle is not a final end-user installer. Replace it with a signed Windows installer before public launch.",
@@ -143,6 +149,7 @@ function renderStartScript() {
   return [
     "@echo off",
     "setlocal",
+    `set "ALLOWED_ORIGINS=${publishedExtensionOrigin}"`,
     "cd /d \"%~dp0companion-app\"",
     "if not exist node_modules (",
     "  npm install --omit=dev",
@@ -161,6 +168,7 @@ function renderCompanionReadme() {
     "Requirements:",
     "- Node.js 18 or newer",
     "- FFmpeg on PATH, or ffmpeg.exe copied to companion-app\\bin\\ffmpeg.exe",
+    `- Published extension origin allowed by default: ${publishedExtensionOrigin}`,
     "",
     "Start on Windows:",
     "1. Extract this zip.",

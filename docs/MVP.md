@@ -45,7 +45,7 @@ The health response includes:
 By default, the WebSocket server only accepts browser origins that start with `chrome-extension://`. For tighter production builds, set the exact unpacked or published extension origin:
 
 ```bash
-ALLOWED_ORIGINS=chrome-extension://EXTENSION_ID npm start
+ALLOWED_ORIGINS=chrome-extension://mahejikknnpligimdeiljklllmielkaf npm start
 ```
 
 FFmpeg discovery order:

@@ -98,5 +98,5 @@ Copy/paste listing text from [Chrome Web Store Copy](STORE_DESC_TXT.md).
 - Do not hardcode stream keys.
 - Do not enable `Remember stream key` on shared machines.
 - Keep the companion bound to `127.0.0.1` unless there is a reviewed reason to expose it.
-- Set `ALLOWED_ORIGINS` to the exact published Chrome extension origin once the extension ID is known.
+- Set `ALLOWED_ORIGINS=chrome-extension://mahejikknnpligimdeiljklllmielkaf` for the published Chrome extension.
 - Bundle or document FFmpeg installation before distributing to non-developer users.

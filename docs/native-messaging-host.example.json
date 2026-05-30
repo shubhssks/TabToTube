@@ -4,7 +4,6 @@
   "path": "C:\\Program Files\\TabToTube\\host.exe",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://EXTENSION_ID/"
+    "chrome-extension://mahejikknnpligimdeiljklllmielkaf/"
   ]
 }
-

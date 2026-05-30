@@ -60,16 +60,17 @@ PORT=43310
 RTMP_BASE_URL=rtmp://a.rtmp.youtube.com/live2
 FFMPEG_PATH=C:\path\to\ffmpeg.exe
 FFMPEG_VERSION_ARGS=-version
-ALLOWED_ORIGINS=chrome-extension://EXTENSION_ID
+ALLOWED_ORIGINS=chrome-extension://mahejikknnpligimdeiljklllmielkaf
 ```
 
 `FFMPEG_VERSION_ARGS` is only needed for custom FFmpeg wrappers. Standard FFmpeg uses `-version`.
+`ALLOWED_ORIGINS` should use the published extension origin for production. For unpacked local development, leave it unset or replace the value with the unpacked extension's generated `chrome-extension://...` origin.
 
 On Windows PowerShell, set environment variables before starting the companion:
 
 ```powershell
 $env:FFMPEG_PATH="C:\path\to\ffmpeg.exe"
-$env:ALLOWED_ORIGINS="chrome-extension://EXTENSION_ID"
+$env:ALLOWED_ORIGINS="chrome-extension://mahejikknnpligimdeiljklllmielkaf"
 npm run companion:start
 ```
 
