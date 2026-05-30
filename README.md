@@ -49,6 +49,7 @@ For GitHub-hosted downloads without a public website, see [GitHub distribution](
 For extension listing media, see [store assets](docs/STORE_ASSETS.md).
 For Chrome Web Store listing text, see [store copy](docs/STORE_DESC_TXT.md).
 For the final Chrome Web Store dashboard checklist, see [store submission packet](docs/CHROME_WEB_STORE_SUBMISSION.md).
+For YouTube quick-start video upload details, see [YouTube video upload](docs/YOUTUBE_VIDEO_UPLOAD.md).
 
 ## User Install
 

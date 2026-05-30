@@ -85,6 +85,10 @@ See [GitHub Download Distribution](GITHUB_DISTRIBUTION.md).
 
 See [Chrome Web Store Assets](STORE_ASSETS.md).
 
+## YouTube Upload Details
+
+Use [YouTube Video Upload Details](YOUTUBE_VIDEO_UPLOAD.md) for the quick-start video title, description, tags, thumbnail path, and recommended visibility settings.
+
 ## Store Listing Copy
 
 Copy/paste listing text from [Chrome Web Store Copy](STORE_DESC_TXT.md).
