@@ -75,6 +75,42 @@ Test with a private or unlisted YouTube Live stream before using TabToTube for a
 #TabToTube #YouTubeLive #ChromeExtension
 ```
 
+## Description Without Clickable Links
+
+Use this version if YouTube shows: "To make external links clickable, first complete a one-time verification."
+
+This avoids external URLs, so the video can be uploaded before the channel has Advanced features enabled.
+
+```text
+TabToTube is a lightweight Chrome extension and local companion app for streaming a browser tab, window, or screen directly to YouTube Live through FFmpeg.
+
+This quick-start video shows the basic flow:
+- Open TabToTube
+- Download the required Companion App from GitHub Releases
+- Start the local companion app
+- Paste your YouTube Live stream key
+- Choose Tab or Screen
+- Start and stop streaming
+
+How to find the downloads:
+1. Open GitHub.
+2. Search for shubhssks/TabToTube.
+3. Open the Releases page.
+4. Download the latest TabToTube Companion bundle.
+
+How to find the Chrome extension:
+Search Chrome Web Store for TabToTube.
+
+Important:
+TabToTube requires the local Companion App because Chrome extensions cannot run FFmpeg directly. Captured media is sent to the companion app on your own computer, then FFmpeg sends the stream to YouTube Live RTMP using the stream key you provide.
+
+Test with a private or unlisted YouTube Live stream before using TabToTube for an important public broadcast.
+
+#TabToTube #YouTubeLive #ChromeExtension
+```
+
+After the channel has Advanced features enabled, replace this fallback description with the full linked description above.
+
 ## Tags
 
 Paste these into the YouTube tags field, not into the description:
@@ -118,6 +154,15 @@ Playlist: Product demos or TabToTube, if the channel has one
 Comments: Allow comments, hold potentially inappropriate comments for review
 ```
 
+If external links are not clickable yet:
+
+```text
+Use the "Description Without Clickable Links" version.
+Do not depend on a pinned comment for the download URL.
+Do not delay the upload just for clickable links.
+Update the description later after Advanced features are enabled.
+```
+
 Do not add an end screen to this exact video. The current video is 24 seconds, and YouTube requires videos to be at least 25 seconds for end screens.
 
 Manual chapters are not needed for this 24-second video. Let YouTube handle automatic chapters if the option is available.
@@ -133,6 +178,8 @@ https://github.com/shubhssks/TabToTube/releases/latest
 The companion app is required because the Chrome extension cannot run FFmpeg directly.
 ```
 
+Skip the pinned comment until the channel can add clickable external links.
+
 ## Upload Checklist
 
 1. Open YouTube Studio.
@@ -141,12 +188,25 @@ The companion app is required because the Chrome extension cannot run FFmpeg dir
 4. Paste the title and description above.
 5. Upload `assets/publishing/video/tabtotube-quick-start-poster.png` as the thumbnail.
 6. Select "No, it is not made for kids".
-7. Open Show more and paste the tags.
-8. Select language, category, license, comments, and visibility.
-9. Let YouTube finish checks.
-10. Publish as Unlisted first, review the playback, then switch to Public when the Chrome Web Store listing is approved.
+7. If YouTube blocks clickable external links, use the fallback description without URLs.
+8. Open Show more and paste the tags.
+9. Select language, category, license, comments, and visibility.
+10. Let YouTube finish checks.
+11. Publish as Unlisted first, review the playback, then switch to Public when the Chrome Web Store listing is approved.
+
+## Enable Clickable Links Later
+
+To make external links clickable, enable Advanced features for the channel:
+
+```text
+YouTube Studio -> Settings -> Channel -> Feature eligibility -> Advanced features
+```
+
+YouTube may allow Advanced features through sufficient channel history, ID verification, or video verification. Availability depends on the channel.
 
 ## Official References
 
 - YouTube upload details: `https://support.google.com/youtube/answer/57407`
 - YouTube custom thumbnails: `https://support.google.com/youtube/answer/72431`
+- YouTube feature access: `https://support.google.com/youtube/answer/9890437`
+- Sharing links with audiences: `https://support.google.com/youtube/answer/13748639`
