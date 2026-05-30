@@ -47,6 +47,7 @@ Stream keys are not saved unless `Remember stream key` is checked in the popup.
 See [commands](docs/COMMANDS.md), [development](docs/DEVELOPMENT.md), and [publishing](docs/PUBLISHING.md) for the full workflow.
 For GitHub-hosted downloads without a public website, see [GitHub distribution](docs/GITHUB_DISTRIBUTION.md).
 For extension listing media, see [store assets](docs/STORE_ASSETS.md).
+For Chrome Web Store listing text, see [store copy](docs/STORE_DESC_TXT.md).
 
 ## Extension Builds
 
