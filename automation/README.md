@@ -4,7 +4,7 @@ Automation is split into three Playwright projects:
 
 - `build`: validates `dist_dev`, `dist_prod`, manifest references, and production zip generation.
 - `popup`: verifies the extension popup UI with a mocked Chrome extension API.
-- `companion`: verifies the local bridge health endpoint, WebSocket origin policy, and invalid stream-key error handling.
+- `companion`: verifies the local bridge health endpoint, FFmpeg preflight reporting, WebSocket origin policy, and invalid stream-key error handling.
 
 Run all projects in one Playwright invocation:
 

@@ -4,6 +4,7 @@ const elements = {
   bitrate: document.querySelector("#bitrate"),
   companionUrl: document.querySelector("#companionUrl"),
   duration: document.querySelector("#duration"),
+  rememberStreamKey: document.querySelector("#rememberStreamKey"),
   startButton: document.querySelector("#startButton"),
   statusDot: document.querySelector("#statusDot"),
   statusText: document.querySelector("#statusText"),
@@ -20,12 +21,19 @@ async function init() {
   const saved = await chrome.storage.local.get([
     "bitrate",
     "companionUrl",
+    "rememberStreamKey",
     "streamKey"
   ]);
 
+  const rememberStreamKey = saved.rememberStreamKey === true;
   elements.bitrate.value = saved.bitrate || "2500000";
   elements.companionUrl.value = saved.companionUrl || DEFAULT_COMPANION_URL;
-  elements.streamKey.value = saved.streamKey || "";
+  elements.rememberStreamKey.checked = rememberStreamKey;
+  elements.streamKey.value = rememberStreamKey ? saved.streamKey || "" : "";
+
+  if (!rememberStreamKey && saved.streamKey) {
+    await chrome.storage.local.remove("streamKey");
+  }
 
   elements.startButton.addEventListener("click", startStream);
   elements.stopButton.addEventListener("click", stopStream);
@@ -50,6 +58,7 @@ async function startStream() {
   const streamKey = elements.streamKey.value.trim();
   const companionUrl = elements.companionUrl.value.trim() || DEFAULT_COMPANION_URL;
   const bitrate = Number(elements.bitrate.value);
+  const rememberStreamKey = elements.rememberStreamKey.checked;
   const source = document.querySelector("input[name='source']:checked").value;
 
   if (!streamKey) {
@@ -58,11 +67,20 @@ async function startStream() {
     return;
   }
 
-  await chrome.storage.local.set({
+  const storageUpdate = {
     bitrate: String(bitrate),
     companionUrl,
-    streamKey
-  });
+    rememberStreamKey
+  };
+
+  if (rememberStreamKey) {
+    storageUpdate.streamKey = streamKey;
+  }
+
+  await chrome.storage.local.set(storageUpdate);
+  if (!rememberStreamKey) {
+    await chrome.storage.local.remove("streamKey");
+  }
 
   elements.startButton.disabled = true;
   applyStatus({ state: "connecting", startedAt: null });
@@ -180,4 +198,3 @@ function renderDuration() {
   const seconds = String(elapsedSeconds % 60).padStart(2, "0");
   elements.duration.textContent = `${hours}:${minutes}:${seconds}`;
 }
-

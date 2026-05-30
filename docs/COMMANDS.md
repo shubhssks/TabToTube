@@ -42,6 +42,8 @@ Check the companion health endpoint while it is running:
 npm run companion:health
 ```
 
+The health response includes `ffmpeg.available`, `ffmpeg.path`, and either a version line or an error.
+
 Direct companion commands are also available from `companion-app/`:
 
 ```bash
@@ -141,4 +143,3 @@ Remove generated build and test artifacts:
 ```bash
 npm run clean
 ```
-

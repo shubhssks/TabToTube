@@ -138,6 +138,21 @@ p {
   box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.13);
 }
 
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4d5665;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.check-field input {
+  width: 16px;
+  height: 16px;
+  accent-color: #1f6feb;
+}
+
 .metrics {
   display: flex;
   align-items: center;
@@ -187,4 +202,3 @@ button.primary {
   background: #1f6feb;
   color: #ffffff;
 }
-

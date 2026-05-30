@@ -39,9 +39,9 @@ Before publishing:
 2. Enable Developer mode.
 3. Load unpacked `D:\Workplace\TabToTube\dist_prod`.
 4. Start the companion with `npm run companion:start`.
-5. Confirm `npm run companion:health` reports `ok: true`.
+5. Confirm `npm run companion:health` reports `ok: true` and `ffmpeg.available: true`.
 6. Start a private or unlisted YouTube Live stream.
-7. Confirm Start, Stop, status, and duration work.
+7. Confirm Start, Stop, status, duration, and stream-key remember behavior work.
 
 ## Chrome Web Store Upload
 
@@ -56,7 +56,7 @@ Do not upload `dist_dev/`.
 ## Production Notes
 
 - Do not hardcode stream keys.
+- Do not enable `Remember stream key` on shared machines.
 - Keep the companion bound to `127.0.0.1` unless there is a reviewed reason to expose it.
 - Set `ALLOWED_ORIGINS` to the exact published Chrome extension origin once the extension ID is known.
 - Bundle or document FFmpeg installation before distributing to non-developer users.
-

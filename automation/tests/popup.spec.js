@@ -29,8 +29,10 @@ test.beforeEach(async ({ page }) => {
     const storage = {
       bitrate: "2500000",
       companionUrl: "ws://127.0.0.1:43310/stream",
+      rememberStreamKey: false,
       streamKey: ""
     };
+    window.__tabToTubeStorage = storage;
 
     window.chrome = {
       runtime: {
@@ -65,6 +67,11 @@ test.beforeEach(async ({ page }) => {
           },
           async set(values) {
             Object.assign(storage, values);
+          },
+          async remove(keys) {
+            for (const key of Array.isArray(keys) ? keys : [keys]) {
+              delete storage[key];
+            }
           }
         }
       }
@@ -78,7 +85,8 @@ test.beforeEach(async ({ page }) => {
 
 test("renders the popup controls", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "TabToTube" })).toBeVisible();
-  await expect(page.getByLabel("Stream key")).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Stream key" })).toBeVisible();
+  await expect(page.getByRole("checkbox", { name: "Remember stream key" })).toBeVisible();
   await expect(page.getByLabel("Companion URL")).toBeVisible();
   await expect(page.getByLabel("Video bitrate")).toBeVisible();
   await expect(page.getByText("Duration")).toBeVisible();
@@ -92,7 +100,7 @@ test("requires a stream key before starting", async ({ page }) => {
 });
 
 test("sends the selected start-stream payload", async ({ page }) => {
-  await page.getByLabel("Stream key").fill("abcd-efgh-ijkl-mnop");
+  await page.getByRole("textbox", { name: "Stream key" }).fill("abcd-efgh-ijkl-mnop");
   await page.getByText("Screen", { exact: true }).click();
   await page.getByRole("button", { name: "Start" }).click();
 
@@ -106,6 +114,26 @@ test("sends the selected start-stream payload", async ({ page }) => {
     source: "screen",
     streamKey: "abcd-efgh-ijkl-mnop"
   });
+});
+
+test("does not persist the stream key unless remember is checked", async ({ page }) => {
+  await page.getByRole("textbox", { name: "Stream key" }).fill("abcd-efgh-ijkl-mnop");
+  await page.getByRole("button", { name: "Start" }).click();
+
+  const storage = await page.evaluate(() => window.__tabToTubeStorage);
+  expect(storage.rememberStreamKey).toBe(false);
+  expect(storage.streamKey).toBeUndefined();
+  expect(storage.companionUrl).toBe("ws://127.0.0.1:43310/stream");
+});
+
+test("persists the stream key when remember is checked", async ({ page }) => {
+  await page.getByRole("textbox", { name: "Stream key" }).fill("abcd-efgh-ijkl-mnop");
+  await page.getByRole("checkbox", { name: "Remember stream key" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+
+  const storage = await page.evaluate(() => window.__tabToTubeStorage);
+  expect(storage.rememberStreamKey).toBe(true);
+  expect(storage.streamKey).toBe("abcd-efgh-ijkl-mnop");
 });
 
 function serveExtensionFile(request, response) {

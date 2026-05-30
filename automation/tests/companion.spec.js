@@ -21,6 +21,8 @@ test.describe("companion app", () => {
       env: {
         ...process.env,
         ALLOWED_ORIGINS: allowedOrigin,
+        FFMPEG_PATH: process.execPath,
+        FFMPEG_VERSION_ARGS: "--version",
         PORT: String(port)
       },
       stdio: ["ignore", "pipe", "pipe"],
@@ -39,7 +41,12 @@ test.describe("companion app", () => {
     expect(response.ok).toBe(true);
     await expect(response.json()).resolves.toMatchObject({
       ok: true,
-      activeSessions: 0
+      activeSessions: 0,
+      ffmpeg: {
+        available: true,
+        path: process.execPath
+      },
+      ffmpegPath: process.execPath
     });
   });
 

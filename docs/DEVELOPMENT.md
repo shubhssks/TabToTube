@@ -31,6 +31,24 @@ Load the extension in Chrome:
 4. Select `D:\Workplace\TabToTube\extension` for source development, or `D:\Workplace\TabToTube\dist_dev` for build validation.
 
 Open the extension popup, enter the YouTube stream key, choose Tab or Screen, and click Start.
+The stream key stays in the current popup session unless `Remember stream key` is checked.
+
+Check FFmpeg readiness before testing a real stream:
+
+```bash
+npm run companion:health
+```
+
+Look for:
+
+```json
+{
+  "ok": true,
+  "ffmpeg": {
+    "available": true
+  }
+}
+```
 
 ## Environment Variables
 
@@ -41,8 +59,11 @@ HOST=127.0.0.1
 PORT=43310
 RTMP_BASE_URL=rtmp://a.rtmp.youtube.com/live2
 FFMPEG_PATH=C:\path\to\ffmpeg.exe
+FFMPEG_VERSION_ARGS=-version
 ALLOWED_ORIGINS=chrome-extension://EXTENSION_ID
 ```
+
+`FFMPEG_VERSION_ARGS` is only needed for custom FFmpeg wrappers. Standard FFmpeg uses `-version`.
 
 On Windows PowerShell, set environment variables before starting the companion:
 
@@ -73,6 +94,8 @@ Full confidence check:
 npm run test:all
 ```
 
+Current automated coverage includes build output validation, popup behavior, explicit stream-key persistence, companion origin checks, and FFmpeg health reporting.
+
 ## Automation Coverage
 
 The coverage matrix lives at `automation/coverage-matrix.json`.
@@ -87,4 +110,3 @@ Report outputs:
 
 - `automation/reports/coverage/coverage.json`
 - `automation/reports/coverage/coverage.md`
-

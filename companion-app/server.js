@@ -11,17 +11,30 @@ const PORT = Number(process.env.PORT || 43310);
 const RTMP_BASE_URL = process.env.RTMP_BASE_URL || "rtmp://a.rtmp.youtube.com/live2";
 const FFMPEG_PATH = resolveFfmpegPath();
 const ALLOWED_ORIGINS = parseAllowedOrigins(process.env.ALLOWED_ORIGINS);
+const FFMPEG_VERSION_ARGS = parseArgList(process.env.FFMPEG_VERSION_ARGS) || ["-version"];
+const FFMPEG_CHECK_TTL_MS = 30000;
+const FFMPEG_CHECK_TIMEOUT_MS = 3000;
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server, path: "/stream" });
 
 const sessions = new Set();
+let ffmpegStatus = {
+  available: false,
+  checkedAt: null,
+  error: "FFmpeg has not been checked yet",
+  path: FFMPEG_PATH,
+  version: null
+};
+let ffmpegStatusPromise = null;
 
-app.get("/health", (req, res) => {
+app.get("/health", async (req, res) => {
+  const ffmpeg = await getFfmpegStatus();
   res.json({
     ok: true,
     activeSessions: sessions.size,
+    ffmpeg,
     ffmpegPath: FFMPEG_PATH
   });
 });
@@ -45,10 +58,10 @@ wss.on("connection", (ws, req) => {
   };
   sessions.add(session);
 
-  ws.on("message", (message, isBinary) => {
+  ws.on("message", async (message, isBinary) => {
     try {
       if (!isBinary) {
-        handleControlMessage(session, message.toString("utf8"));
+        await handleControlMessage(session, message.toString("utf8"));
         return;
       }
 
@@ -76,12 +89,19 @@ wss.on("connection", (ws, req) => {
 server.listen(PORT, HOST, () => {
   logger.info(`Companion app listening on ws://${HOST}:${PORT}/stream`);
   logger.info(`Health check available at http://${HOST}:${PORT}/health`);
+  getFfmpegStatus({ force: true }).then((status) => {
+    if (status.available) {
+      logger.info(`FFmpeg ready: ${status.version || status.path}`);
+    } else {
+      logger.warn(`FFmpeg unavailable at ${status.path}: ${status.error}`);
+    }
+  });
 });
 
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-function handleControlMessage(session, rawMessage) {
+async function handleControlMessage(session, rawMessage) {
   const message = JSON.parse(rawMessage);
 
   if (message.type === "start") {
@@ -89,7 +109,7 @@ function handleControlMessage(session, rawMessage) {
       throw new Error("Stream already started");
     }
 
-    startFfmpeg(session, message);
+    await startFfmpeg(session, message);
     return;
   }
 
@@ -101,8 +121,9 @@ function handleControlMessage(session, rawMessage) {
   throw new Error(`Unknown control message: ${message.type}`);
 }
 
-function startFfmpeg(session, options) {
+async function startFfmpeg(session, options) {
   validateStreamOptions(options);
+  await assertFfmpegAvailable();
 
   const bitrateKbps = Math.max(500, Math.round(Number(options.bitrate || 2500000) / 1000));
   const rtmpUrl = `${RTMP_BASE_URL}/${options.streamKey}`;
@@ -209,6 +230,13 @@ function validateStreamOptions(options) {
   }
 }
 
+async function assertFfmpegAvailable() {
+  const status = await getFfmpegStatus();
+  if (!status.available) {
+    throw new Error(`FFmpeg is not available at ${status.path}: ${status.error}`);
+  }
+}
+
 function sendError(ws, error) {
   if (ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify({
@@ -231,6 +259,89 @@ function resolveFfmpegPath() {
   return "ffmpeg";
 }
 
+async function getFfmpegStatus({ force = false } = {}) {
+  const recentlyChecked = ffmpegStatus.checkedAt
+    && Date.now() - ffmpegStatus.checkedAt < FFMPEG_CHECK_TTL_MS;
+
+  if (!force && recentlyChecked) {
+    return ffmpegStatus;
+  }
+
+  if (ffmpegStatusPromise) {
+    return ffmpegStatusPromise;
+  }
+
+  ffmpegStatusPromise = checkFfmpeg()
+    .then((status) => {
+      ffmpegStatus = status;
+      return status;
+    })
+    .finally(() => {
+      ffmpegStatusPromise = null;
+    });
+
+  return ffmpegStatusPromise;
+}
+
+function checkFfmpeg() {
+  return new Promise((resolve) => {
+    const child = spawn(FFMPEG_PATH, FFMPEG_VERSION_ARGS, {
+      stdio: ["ignore", "pipe", "pipe"],
+      windowsHide: true
+    });
+    let output = "";
+    let settled = false;
+
+    const timeout = setTimeout(() => {
+      settle({
+        available: false,
+        error: `FFmpeg version check timed out after ${FFMPEG_CHECK_TIMEOUT_MS}ms`
+      });
+      child.kill();
+    }, FFMPEG_CHECK_TIMEOUT_MS);
+
+    child.stdout.on("data", (chunk) => {
+      output += chunk.toString("utf8");
+    });
+
+    child.stderr.on("data", (chunk) => {
+      output += chunk.toString("utf8");
+    });
+
+    child.on("error", (error) => {
+      settle({
+        available: false,
+        error: error.message
+      });
+    });
+
+    child.on("exit", (code) => {
+      const version = output.split(/\r?\n/).find(Boolean) || null;
+      settle({
+        available: code === 0,
+        error: code === 0 ? null : `FFmpeg version check exited with code ${code}`,
+        version
+      });
+    });
+
+    function settle(result) {
+      if (settled) {
+        return;
+      }
+
+      settled = true;
+      clearTimeout(timeout);
+      resolve({
+        available: result.available,
+        checkedAt: new Date().toISOString(),
+        error: result.error || null,
+        path: FFMPEG_PATH,
+        version: result.version || null
+      });
+    }
+  });
+}
+
 function parseAllowedOrigins(value) {
   if (!value) {
     return [];
@@ -239,6 +350,17 @@ function parseAllowedOrigins(value) {
   return value
     .split(",")
     .map((origin) => origin.trim())
+    .filter(Boolean);
+}
+
+function parseArgList(value) {
+  if (!value) {
+    return null;
+  }
+
+  return value
+    .split(/\s+/)
+    .map((part) => part.trim())
     .filter(Boolean);
 }
 

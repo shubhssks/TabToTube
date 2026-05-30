@@ -42,9 +42,16 @@
     "testFile": "automation/tests/popup.spec.js"
   },
   {
+    "id": "POPUP-004",
+    "area": "Extension UI",
+    "requirement": "Persist stream keys only when the user explicitly enables remember stream key.",
+    "suite": "popup",
+    "testFile": "automation/tests/popup.spec.js"
+  },
+  {
     "id": "COMP-001",
     "area": "Companion app",
-    "requirement": "Expose a local health endpoint.",
+    "requirement": "Expose a local health endpoint with FFmpeg availability.",
     "suite": "companion",
     "testFile": "automation/tests/companion.spec.js"
   },
@@ -63,4 +70,3 @@
     "testFile": "automation/tests/companion.spec.js"
   }
 ]
-
