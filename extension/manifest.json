@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "TabToTube",
+  "description": "Capture a tab, window, or screen and stream it to YouTube Live through a local FFmpeg bridge.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "activeTab",
+    "desktopCapture",
+    "notifications",
+    "offscreen",
+    "storage",
+    "tabCapture"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "TabToTube"
+  },
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' ws://127.0.0.1:* ws://localhost:* http://127.0.0.1:* http://localhost:*"
+  }
+}
+

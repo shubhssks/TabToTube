@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TabToTube</title>
+    <link rel="stylesheet" href="./popup.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>TabToTube</h1>
+          <p id="statusText">Idle</p>
+        </div>
+        <span id="statusDot" class="status-dot idle" aria-hidden="true"></span>
+      </header>
+
+      <section class="control-group" aria-label="Capture source">
+        <div class="segmented">
+          <label>
+            <input type="radio" name="source" value="tab" checked>
+            <span>Tab</span>
+          </label>
+          <label>
+            <input type="radio" name="source" value="screen">
+            <span>Screen</span>
+          </label>
+        </div>
+      </section>
+
+      <label class="field">
+        <span>Stream key</span>
+        <input id="streamKey" type="password" autocomplete="off" spellcheck="false" placeholder="xxxx-xxxx-xxxx-xxxx">
+      </label>
+
+      <label class="field">
+        <span>Companion URL</span>
+        <input id="companionUrl" type="url" spellcheck="false" value="ws://127.0.0.1:43310/stream">
+      </label>
+
+      <label class="field">
+        <span>Video bitrate</span>
+        <select id="bitrate">
+          <option value="1500000">1.5 Mbps</option>
+          <option value="2500000" selected>2.5 Mbps</option>
+          <option value="3500000">3.5 Mbps</option>
+          <option value="4500000">4.5 Mbps</option>
+        </select>
+      </label>
+
+      <div class="metrics">
+        <span>Duration</span>
+        <strong id="duration">00:00:00</strong>
+      </div>
+
+      <footer class="actions">
+        <button id="startButton" type="button" class="primary">Start</button>
+        <button id="stopButton" type="button" disabled>Stop</button>
+      </footer>
+    </main>
+
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>
+

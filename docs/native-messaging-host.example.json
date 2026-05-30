@@ -1,0 +1,10 @@
+{
+  "name": "com.tabtotube.host",
+  "description": "TabToTube Native Host",
+  "path": "C:\\Program Files\\TabToTube\\host.exe",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://EXTENSION_ID/"
+  ]
+}
+

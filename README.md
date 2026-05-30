@@ -1,0 +1,98 @@
+# TabToTube
+
+TabToTube is a lightweight Chrome extension plus local companion app for sending captured browser media to YouTube Live through FFmpeg.
+
+## MVP Architecture
+
+```text
+Chrome Extension -> Local WebSocket Companion -> FFmpeg -> YouTube RTMP
+```
+
+## Quick Start
+
+Install root dependencies:
+
+```bash
+npm install
+```
+
+Install the Playwright browser runtime used by automation:
+
+```bash
+npm run playwright:install
+```
+
+1. Install companion dependencies:
+
+   ```bash
+   npm run companion:install
+   ```
+
+2. Put FFmpeg at `companion-app/bin/ffmpeg.exe`, or make `ffmpeg` available on `PATH`.
+
+3. Start the local companion:
+
+   ```bash
+   npm run companion:start
+   ```
+
+4. Load `extension/` as an unpacked extension in Chrome.
+
+5. Open the extension popup, paste a YouTube stream key, choose a source, and start streaming.
+
+The companion binds to `127.0.0.1` by default and listens on `ws://127.0.0.1:43310/stream`.
+
+See [commands](docs/COMMANDS.md), [development](docs/DEVELOPMENT.md), and [publishing](docs/PUBLISHING.md) for the full workflow.
+
+## Extension Builds
+
+Install root automation dependencies once:
+
+```bash
+npm install
+```
+
+Create both extension builds:
+
+```bash
+npm run build
+```
+
+Outputs:
+
+- `dist_dev/`: unpacked development extension, named `TabToTube Dev`.
+- `dist_prod/`: unpacked production extension, named `TabToTube`.
+- `dist_prod/tabtotube-extension-v0.1.0.zip`: Chrome Web Store upload artifact.
+
+## Automation
+
+Run the complete build and test pipeline:
+
+```bash
+npm run test:all
+```
+
+This runs:
+
+- `npm run build`
+- JavaScript syntax checks
+- automation coverage report
+- Playwright suites for build, popup, and companion bridge
+
+Run the Playwright suites as separate parallel processes:
+
+```bash
+npm run test:automation:parallel
+```
+
+Reports are written under `automation/reports/`.
+
+## Publish Artifact
+
+To create the Chrome Web Store zip:
+
+```bash
+npm run publish:zip
+```
+
+Upload `dist_prod/tabtotube-extension-v0.1.0.zip` after testing the unpacked `dist_prod/` extension.

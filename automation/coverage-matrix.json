@@ -1,0 +1,66 @@
+[
+  {
+    "id": "BUILD-001",
+    "area": "Extension build",
+    "requirement": "Create a development extension build in dist_dev.",
+    "suite": "build",
+    "testFile": "automation/tests/build.spec.js"
+  },
+  {
+    "id": "BUILD-002",
+    "area": "Extension build",
+    "requirement": "Create a production extension build and publish zip in dist_prod.",
+    "suite": "build",
+    "testFile": "automation/tests/build.spec.js"
+  },
+  {
+    "id": "BUILD-003",
+    "area": "Extension build",
+    "requirement": "Validate manifest references and block secret-like values in extension artifacts.",
+    "suite": "build",
+    "testFile": "automation/tests/build.spec.js"
+  },
+  {
+    "id": "POPUP-001",
+    "area": "Extension UI",
+    "requirement": "Render stream key, companion URL, bitrate, source, start, stop, status, and duration controls.",
+    "suite": "popup",
+    "testFile": "automation/tests/popup.spec.js"
+  },
+  {
+    "id": "POPUP-002",
+    "area": "Extension UI",
+    "requirement": "Validate that stream key is required before starting.",
+    "suite": "popup",
+    "testFile": "automation/tests/popup.spec.js"
+  },
+  {
+    "id": "POPUP-003",
+    "area": "Extension UI",
+    "requirement": "Send start-stream payload with selected source, stream key, bitrate, and companion URL.",
+    "suite": "popup",
+    "testFile": "automation/tests/popup.spec.js"
+  },
+  {
+    "id": "COMP-001",
+    "area": "Companion app",
+    "requirement": "Expose a local health endpoint.",
+    "suite": "companion",
+    "testFile": "automation/tests/companion.spec.js"
+  },
+  {
+    "id": "COMP-002",
+    "area": "Companion app",
+    "requirement": "Accept WebSocket connections only from configured extension origins.",
+    "suite": "companion",
+    "testFile": "automation/tests/companion.spec.js"
+  },
+  {
+    "id": "COMP-003",
+    "area": "Companion app",
+    "requirement": "Return a controlled error for invalid stream start messages.",
+    "suite": "companion",
+    "testFile": "automation/tests/companion.spec.js"
+  }
+]
+

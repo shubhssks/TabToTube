@@ -1,0 +1,37 @@
+{
+  "name": "tabtotube",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Build and automation workspace for the TabToTube extension.",
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build:dev": "node scripts/build-extension.mjs dev",
+    "build:prod": "node scripts/build-extension.mjs prod",
+    "build:all": "node scripts/build-extension.mjs all",
+    "build": "npm run build:dev && npm run build:prod",
+    "publish:zip": "npm run build:prod",
+    "playwright:install": "playwright install chromium",
+    "companion:install": "npm --prefix companion-app install",
+    "companion:start": "npm --prefix companion-app start",
+    "companion:dev": "npm --prefix companion-app run dev",
+    "companion:health": "node -e \"fetch('http://127.0.0.1:43310/health').then((r)=>r.json()).then((body)=>console.log(JSON.stringify(body, null, 2)))\"",
+    "check:js": "node scripts/check-js.mjs",
+    "test:coverage": "node automation/scripts/coverage-report.mjs",
+    "test:automation": "playwright test",
+    "test:automation:build": "playwright test --project=build",
+    "test:automation:popup": "playwright test --project=popup",
+    "test:automation:companion": "playwright test --project=companion",
+    "test:automation:parallel": "node automation/scripts/run-parallel-suites.mjs",
+    "test": "npm run check:js && npm run test:coverage && npm run test:automation",
+    "test:all": "npm run build && npm run check:js && npm run test:coverage && npm run test:automation:parallel",
+    "verify": "npm run test:all"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "archiver": "^8.0.0",
+    "ws": "^8.21.0"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules/
+npm-debug.log*
+*.log
+.env
+dist/
+dist_dev/
+dist_prod/
+build/
+coverage/
+automation/reports/
+playwright-report/
+playwright-report*/
+test-results/
+test-results*/
+.DS_Store
+Thumbs.db
