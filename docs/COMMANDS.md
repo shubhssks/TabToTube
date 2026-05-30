@@ -106,7 +106,7 @@ Outputs:
 
 - `dist_dev/`
 - `dist_prod/`
-- `dist_prod/tabtotube-extension-v0.1.0.zip`
+- `dist_prod/tabtotube-extension-v1.0.0.zip`
 - `release_assets/`
 
 ## Validation

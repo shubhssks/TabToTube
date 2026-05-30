@@ -56,6 +56,16 @@ assets/publishing/promotional/large-promo-920x680.png
 assets/publishing/promotional/marquee-promo-1400x560.png
 ```
 
+Chrome Web Store tiles:
+
+```text
+Small promo tile: assets/publishing/promotional/small-promo-440x280.png
+Canvas: 440 x 280
+
+Marquee promo tile: assets/publishing/promotional/marquee-promo-1400x560.png
+Canvas: 1400 x 560
+```
+
 ## Instructional Video
 
 Generated video and poster:
@@ -78,5 +88,5 @@ https://developer.chrome.com/docs/webstore/images
 GitHub release assets include the same media in:
 
 ```text
-release_assets/TabToTube-Store-Assets-v0.1.0.zip
+release_assets/TabToTube-Store-Assets-v1.0.zip
 ```

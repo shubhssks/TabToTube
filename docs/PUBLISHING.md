@@ -11,7 +11,7 @@ npm run publish:zip
 This creates:
 
 - `dist_prod/`
-- `dist_prod/tabtotube-extension-v0.1.0.zip`
+- `dist_prod/tabtotube-extension-v1.0.0.zip`
 
 For GitHub download releases, run:
 
@@ -62,7 +62,7 @@ Before publishing:
 Upload:
 
 ```text
-dist_prod/tabtotube-extension-v0.1.0.zip
+dist_prod/tabtotube-extension-v1.0.0.zip
 ```
 
 Do not upload `dist_dev/`.

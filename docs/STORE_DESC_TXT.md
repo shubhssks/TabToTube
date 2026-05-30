@@ -143,7 +143,7 @@ If no YouTube stream key is available, the popup UI, source selection, stream-ke
 For issues, open a GitHub issue in the public TabToTube downloads repository or contact the developer through the Chrome Web Store support channel.
 ```
 
-## Release Notes 0.1.0
+## Release Notes 1.0
 
 ```text
 Initial MVP release.

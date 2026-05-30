@@ -1,11 +1,13 @@
 import { chromium } from "@playwright/test";
 import { spawnSync } from "node:child_process";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const root = resolve(scriptDir, "..");
+const manifest = JSON.parse(await readFile(resolve(root, "extension", "manifest.json"), "utf8"));
+const displayVersion = manifest.version_name || manifest.version;
 const publishingDir = resolve(root, "assets", "publishing");
 const iconDir = resolve(root, "extension", "icons");
 const screenshotDir = join(publishingDir, "screenshots");
@@ -449,7 +451,7 @@ function videoVisual(highlight) {
       <div class="download-card">
         ${iconSvg()}
         <h2>GitHub Releases</h2>
-        <p>TabToTube-Companion-Node-Bundle-v0.1.0.zip</p>
+        <p>TabToTube-Companion-Node-Bundle-v${displayVersion}.zip</p>
         <button>Download</button>
       </div>
     `;

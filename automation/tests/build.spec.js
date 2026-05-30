@@ -6,6 +6,8 @@ const { test, expect } = require("@playwright/test");
 const root = path.resolve(__dirname, "../..");
 
 test.describe("extension builds", () => {
+  test.describe.configure({ mode: "serial" });
+
   test("creates dist_dev with a development manifest", async () => {
     execFileSync(process.execPath, ["scripts/build-extension.mjs", "dev"], {
       cwd: root,
@@ -15,6 +17,7 @@ test.describe("extension builds", () => {
     const manifest = readJson(path.join(root, "dist_dev/manifest.json"));
     expect(manifest.name).toBe("TabToTube Dev");
     expect(manifest.version_name).toBe(`${manifest.version}-dev`);
+    expect(manifest.version).toBe("1.0.0");
     expect(fs.existsSync(path.join(root, "dist_dev/popup/popup.html"))).toBe(true);
     expect(fs.existsSync(path.join(root, "dist_dev/background/background.js"))).toBe(true);
   });
@@ -29,9 +32,20 @@ test.describe("extension builds", () => {
     const zipPath = path.join(root, `dist_prod/tabtotube-extension-v${manifest.version}.zip`);
 
     expect(manifest.name).toBe("TabToTube");
-    expect(manifest.version_name).toBeUndefined();
+    expect(manifest.version).toBe("1.0.0");
+    expect(manifest.version_name).toBe("1.0");
     expect(fs.existsSync(path.join(root, "dist_prod/offscreen/offscreen.js"))).toBe(true);
     expect(fs.statSync(zipPath).size).toBeGreaterThan(1024);
+  });
+
+  test("minifies production JavaScript and CSS", async () => {
+    const popupJs = fs.readFileSync(path.join(root, "dist_prod/popup/popup.js"), "utf8");
+    const popupCss = fs.readFileSync(path.join(root, "dist_prod/popup/popup.css"), "utf8");
+
+    expect(popupJs.split(/\r?\n/).filter(Boolean).length).toBeLessThanOrEqual(2);
+    expect(popupCss.split(/\r?\n/).filter(Boolean).length).toBeLessThanOrEqual(2);
+    expect(popupJs.length).toBeLessThan(fs.readFileSync(path.join(root, "extension/popup/popup.js"), "utf8").length);
+    expect(popupCss.length).toBeLessThan(fs.readFileSync(path.join(root, "extension/popup/popup.css"), "utf8").length);
   });
 
   test("keeps publish artifacts free from secret-like values", async () => {
@@ -59,4 +73,3 @@ function listFiles(directory) {
     return entry.isDirectory() ? listFiles(absolutePath) : absolutePath;
   });
 }
-

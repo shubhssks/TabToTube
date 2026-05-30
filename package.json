@@ -1,6 +1,6 @@
 {
   "name": "tabtotube",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Build and automation workspace for the TabToTube extension.",
   "scripts": {
@@ -35,6 +35,9 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "archiver": "^8.0.0",
+    "clean-css": "^5.3.3",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.48.0",
     "ws": "^8.21.0"
   }
 }

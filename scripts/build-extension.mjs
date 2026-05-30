@@ -5,6 +5,9 @@ import { dirname, extname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
+const CleanCSS = require("clean-css");
+const { minify: minifyHtml } = require("html-minifier-terser");
+const { minify: minifyJs } = require("terser");
 const { ZipArchive } = require("archiver");
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const root = resolve(scriptDir, "..");
@@ -33,6 +36,9 @@ async function build(target) {
   await mkdir(outputDir, { recursive: true });
   await copyDirectory(sourceDir, outputDir);
   await writeBuildManifest(outputDir, target);
+  if (target === "prod") {
+    await minifyBuild(outputDir);
+  }
   await validateBuild(outputDir);
 
   if (target === "prod") {
@@ -107,6 +113,76 @@ async function validateBuild(outputDir) {
       }
     }
   }
+}
+
+async function minifyBuild(outputDir) {
+  const files = await listFiles(outputDir);
+
+  for (const file of files) {
+    const extension = extname(file);
+    if (extension === ".js") {
+      await minifyJavaScript(file);
+    } else if (extension === ".css") {
+      await minifyCss(file);
+    } else if (extension === ".html") {
+      await minifyHtmlFile(file);
+    } else if (extension === ".json") {
+      await minifyJson(file);
+    }
+  }
+}
+
+async function minifyJavaScript(file) {
+  const source = await readFile(file, "utf8");
+  const result = await minifyJs(source, {
+    compress: {
+      passes: 2
+    },
+    ecma: 2022,
+    format: {
+      comments: false
+    },
+    mangle: true,
+    module: true,
+    toplevel: true
+  });
+
+  if (!result.code) {
+    throw new Error(`Terser did not produce output for ${relative(root, file)}`);
+  }
+
+  await writeFile(file, `${result.code}\n`);
+}
+
+async function minifyCss(file) {
+  const source = await readFile(file, "utf8");
+  const result = new CleanCSS({ level: 2 }).minify(source);
+  if (result.errors.length) {
+    throw new Error(`CSS minification failed for ${relative(root, file)}: ${result.errors.join("; ")}`);
+  }
+
+  await writeFile(file, `${result.styles}\n`);
+}
+
+async function minifyHtmlFile(file) {
+  const source = await readFile(file, "utf8");
+  const result = await minifyHtml(source, {
+    collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+    decodeEntities: true,
+    minifyCSS: true,
+    minifyJS: false,
+    removeAttributeQuotes: false,
+    removeComments: true,
+    removeRedundantAttributes: true
+  });
+
+  await writeFile(file, `${result}\n`);
+}
+
+async function minifyJson(file) {
+  const source = await readFile(file, "utf8");
+  await writeFile(file, `${JSON.stringify(JSON.parse(source))}\n`);
 }
 
 async function createArchive(outputDir) {

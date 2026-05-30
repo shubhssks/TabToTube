@@ -67,7 +67,7 @@ Outputs:
 
 - `dist_dev/`: unpacked development extension, named `TabToTube Dev`.
 - `dist_prod/`: unpacked production extension, named `TabToTube`.
-- `dist_prod/tabtotube-extension-v0.1.0.zip`: Chrome Web Store upload artifact.
+- `dist_prod/tabtotube-extension-v1.0.0.zip`: Chrome Web Store upload artifact.
 
 ## Automation
 
@@ -100,4 +100,4 @@ To create the Chrome Web Store zip:
 npm run publish:zip
 ```
 
-Upload `dist_prod/tabtotube-extension-v0.1.0.zip` after testing the unpacked `dist_prod/` extension.
+Upload `dist_prod/tabtotube-extension-v1.0.0.zip` after testing the unpacked `dist_prod/` extension.

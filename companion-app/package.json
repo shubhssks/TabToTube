@@ -1,6 +1,6 @@
 {
   "name": "tabtotube-companion",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Local WebSocket to FFmpeg bridge for TabToTube.",
   "main": "server.js",
   "private": true,
@@ -16,4 +16,3 @@
     "node": ">=18"
   }
 }
-

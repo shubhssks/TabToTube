@@ -43,13 +43,13 @@ After the setup above:
 2. Go to Actions.
 3. Select `Publish Download Release`.
 4. Click Run workflow.
-5. Enter the version, for example `0.1.0`.
+5. Enter the version, for example `1.0`.
 
 The workflow publishes a release to the public downloads repo with:
 
-- `TabToTube-Extension-v0.1.0.zip`
-- `TabToTube-Companion-Node-Bundle-v0.1.0.zip`
-- `TabToTube-Store-Assets-v0.1.0.zip`
+- `TabToTube-Extension-v1.0.zip`
+- `TabToTube-Companion-Node-Bundle-v1.0.zip`
+- `TabToTube-Store-Assets-v1.0.zip`
 - `checksums-sha256.txt`
 
 ## Manual Publish
@@ -68,7 +68,7 @@ release_assets/
 
 ## Current Companion Asset
 
-`TabToTube-Companion-Node-Bundle-v0.1.0.zip` is a temporary tester bundle. It requires:
+`TabToTube-Companion-Node-Bundle-v1.0.zip` is a temporary tester bundle. It requires:
 
 - Node.js 18+
 - FFmpeg on PATH or `companion-app/bin/ffmpeg.exe`

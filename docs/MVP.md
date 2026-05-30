@@ -85,7 +85,7 @@ npm run test:all
 npm run verify
 ```
 
-`npm run build` creates `dist_dev/`, `dist_prod/`, and `dist_prod/tabtotube-extension-v0.1.0.zip`.
+`npm run build` creates `dist_dev/`, `dist_prod/`, and `dist_prod/tabtotube-extension-v1.0.0.zip`.
 
 `npm run test:all` builds both outputs, checks JavaScript syntax, writes the automation coverage report, and runs Playwright build, popup, and companion suites in parallel.
 The current coverage matrix tracks build output, popup validation, explicit stream-key persistence, companion origin policy, and FFmpeg health reporting.
