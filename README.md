@@ -67,6 +67,9 @@ https://github.com/shubhssks/TabToTube/releases/latest
 
 The extension popup also shows this companion download link directly, so users see the required local app before they try to stream.
 
+If Windows blocks the companion `.cmd` file, use the manual commands in [Companion App Windows Start Guide](docs/COMPANION_WINDOWS_START.md).
+For a public non-technical user flow, see [Non-Technical User Install Plan](docs/NON_TECHNICAL_USER_INSTALL.md).
+
 ## Extension Builds
 
 Install root automation dependencies once:

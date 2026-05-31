@@ -122,7 +122,7 @@ Test setup:
 3. Extract the companion bundle.
 4. Make sure Node.js 18+ is installed.
 5. Make sure FFmpeg is available on PATH or copied to companion-app/bin/ffmpeg.exe.
-6. Start the companion with start-companion-windows.cmd or npm run companion:start.
+6. Start the companion with the manual Windows commands in START-HERE-WINDOWS.txt. If Windows allows it, start-companion-windows.cmd can be used as a shortcut.
 7. Open http://127.0.0.1:43310/health and confirm ok: true and ffmpeg.available: true.
 8. Open the extension popup.
 9. Paste a test YouTube Live stream key.

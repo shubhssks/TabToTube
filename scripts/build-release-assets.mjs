@@ -74,6 +74,9 @@ async function createCompanionBundle(zipPath) {
     archive.append(renderCompanionReadme(), {
       name: "README-COMPANION.txt"
     });
+    archive.append(renderWindowsStartGuide(), {
+      name: "START-HERE-WINDOWS.txt"
+    });
 
     archive.finalize();
   });
@@ -129,10 +132,11 @@ function renderReleaseNotes({ companionZipName, extensionZipName, storeAssetsZip
     "",
     "1. Download the companion bundle from https://github.com/shubhssks/TabToTube/releases/latest.",
     "2. Extract the companion bundle.",
-    "3. Run `start-companion-windows.cmd`.",
-    "4. Confirm `http://127.0.0.1:43310/health` reports `ffmpeg.available: true`.",
-    "5. Install or load the extension.",
-    "6. Paste a YouTube Live stream key and start a private test stream.",
+    "3. Open `START-HERE-WINDOWS.txt` and follow the manual terminal commands.",
+    "4. If Windows allows it, `start-companion-windows.cmd` can be used as a shortcut.",
+    "5. Confirm `http://127.0.0.1:43310/health` reports `ffmpeg.available: true`.",
+    "6. Install or load the extension.",
+    "7. Paste a YouTube Live stream key and start a private test stream.",
     "",
     "## Chrome Web Store",
     "",
@@ -172,10 +176,65 @@ function renderCompanionReadme() {
     "",
     "Start on Windows:",
     "1. Extract this zip.",
-    "2. Double-click start-companion-windows.cmd.",
-    "3. Visit http://127.0.0.1:43310/health and check ffmpeg.available.",
+    "2. Open START-HERE-WINDOWS.txt.",
+    "3. Use the manual terminal commands listed there.",
+    "4. If Windows allows it, start-companion-windows.cmd can be used as a shortcut.",
+    "5. Visit http://127.0.0.1:43310/health and check ffmpeg.available.",
+    "",
+    "If Windows blocks start-companion-windows.cmd as unsafe:",
+    "- Do not disable Windows security globally.",
+    "- Use START-HERE-WINDOWS.txt and run the commands manually in Command Prompt.",
+    "- Only use Run anyway or Unblock if the zip came from the official GitHub release and checksums match.",
     "",
     "For production, distribute a signed installer instead of this bundle.",
+    ""
+  ].join("\r\n");
+}
+
+function renderWindowsStartGuide() {
+  return [
+    "TabToTube Companion - Windows Start Guide",
+    "",
+    "Windows may block start-companion-windows.cmd because it is an unsigned script downloaded from the internet.",
+    "That does not automatically mean the file is malicious, but you should only run files downloaded from the official TabToTube GitHub release.",
+    "",
+    "Official release page:",
+    "https://github.com/shubhssks/TabToTube/releases/latest",
+    "",
+    "Recommended manual start method:",
+    "",
+    "1. Extract the companion zip.",
+    "2. Open the extracted folder that contains the companion-app folder.",
+    "3. Click the folder address bar, type cmd, and press Enter.",
+    "4. Run these commands:",
+    "",
+    `set "ALLOWED_ORIGINS=${publishedExtensionOrigin}"`,
+    "cd companion-app",
+    "npm install --omit=dev",
+    "npm start",
+    "",
+    "5. Keep the Command Prompt window open while streaming.",
+    "6. Open this health check in Chrome:",
+    "",
+    "http://127.0.0.1:43310/health",
+    "",
+    "Expected health check should contain:",
+    "",
+    "\"ok\": true",
+    "\"available\": true",
+    "",
+    "Do not run these commands from store_submission\\v1.0\\copy. That folder only contains release copy and documentation, not the companion app.",
+    "",
+    "If ffmpeg.available is false:",
+    "",
+    "- Install FFmpeg and make sure ffmpeg.exe is on PATH, or",
+    "- Copy ffmpeg.exe to companion-app\\bin\\ffmpeg.exe",
+    "",
+    "Optional unblock method:",
+    "",
+    "If you trust the official GitHub release and the checksum matches, you can right-click the downloaded zip or extracted .cmd file, open Properties, check Unblock, and click Apply.",
+    "",
+    "Do not disable Windows Defender or SmartScreen globally.",
     ""
   ].join("\r\n");
 }

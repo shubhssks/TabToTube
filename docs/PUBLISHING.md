@@ -77,6 +77,9 @@ The current public companion download is:
 https://github.com/shubhssks/TabToTube/releases/latest
 ```
 
+If Windows blocks `start-companion-windows.cmd`, tell users to follow [Companion App Windows Start Guide](COMPANION_WINDOWS_START.md) instead of disabling Windows security.
+For the final consumer-grade install path, follow [Non-Technical User Install Plan](NON_TECHNICAL_USER_INSTALL.md).
+
 If the source repo becomes private again and there is no website, publish public binaries through a separate public GitHub repo.
 
 See [GitHub Download Distribution](GITHUB_DISTRIBUTION.md).

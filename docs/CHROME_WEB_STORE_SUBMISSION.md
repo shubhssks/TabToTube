@@ -148,6 +148,13 @@ Important reviewer link:
 https://github.com/shubhssks/TabToTube/releases/latest
 ```
 
+Windows companion note:
+
+```text
+If Windows blocks start-companion-windows.cmd as unsafe, open START-HERE-WINDOWS.txt from the extracted companion bundle and run the manual Command Prompt commands. Do not disable Windows security globally.
+Run the commands from the extracted companion bundle root that contains companion-app, not from store_submission/v1.0/copy.
+```
+
 ## Final Local Checks
 
 Run before upload:
